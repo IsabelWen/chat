@@ -5,7 +5,7 @@ import { collection, addDoc, onSnapshot, orderBy, query } from "firebase/firesto
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Chat = ({ route, navigation, db, isConnected }) => {
-    const { name, background, userID } = route.params;
+    const { name, background, id } = route.params;
     const [messages, setMessages] = useState([]);
     const onSend = (newMessages) => {
       addDoc(collection(db, "messages"), newMessages[0])
@@ -68,7 +68,7 @@ const Chat = ({ route, navigation, db, isConnected }) => {
 
     const loadCachedMessages = async () => {
       const cachedMessages = await AsyncStorage.getItem("chat_messages") || [];
-      setLists(JSON.parse(cachedMessages));
+      setMessages(JSON.parse(cachedMessages));
     }
   
     const cacheMessagesHistory = async (listsToCache) => {
@@ -87,7 +87,7 @@ const Chat = ({ route, navigation, db, isConnected }) => {
               renderInputToolbar={renderInputToolbar}
               onSend={messages => onSend(messages)}
               user={{
-                _id: userID,
+                _id: id,
                 name
               }}
             />

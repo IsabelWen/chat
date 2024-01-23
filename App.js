@@ -9,7 +9,7 @@ import Chat from './components/Chat';
 
 // import Firestore
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, disableNetwork, enableNetwork } from "firebase/firestore";
 
 // import react Navigation
 import { NavigationContainer } from '@react-navigation/native';

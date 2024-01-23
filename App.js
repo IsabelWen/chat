@@ -19,6 +19,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const connectionStatus = useNetInfo();
   // Web app's Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyCKurxYwWqtW6SStZM1hJvxDUkgibCOVic",
@@ -35,6 +36,16 @@ const App = () => {
   // Initialize Cloud Firestore and get a reference to the service
   const db = getFirestore(app)
 
+  // Network connectivity status
+  useEffect(() => {
+    if (connectionStatus.isConnected === false) {
+      Alert.alert("Connection Lost!!");
+      disableNetwork(db);
+    } else if (connectionStatus.isConnected === true) {
+      enableNetwork(db);
+    }
+  }, [connectionStatus.isConnected]);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -47,7 +58,7 @@ const App = () => {
         <Stack.Screen
           name="Chat"
         >
-            {props => <Chat db={db} {...props} />}
+            {props => <Chat isConnected={connectionStatus.isConnected} db={db} {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

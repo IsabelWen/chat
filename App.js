@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useNetInfo } from "@react-native-community/netinfo";
+import { useEffect } from 'react';
 import { StyleSheet, LogBox, Alert } from 'react-native';
 LogBox.ignoreLogs(["AsyncStorage has been extracted from"]);
 

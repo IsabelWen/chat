@@ -26,6 +26,12 @@ const Chat = ({ route, navigation, db }) => {
       />
     }
 
+    // Prevent rendering of InputToolbar when offline
+    const renderInputToolbar = (props) => {
+      if (isConnected) return <InputToolbar {...props} />;
+      else return null;
+    }
+
     // Set user name
     useEffect(() => {
         navigation.setOptions({ title: name });
@@ -58,9 +64,9 @@ const Chat = ({ route, navigation, db }) => {
             <GiftedChat
               messages={messages}
               renderBubble={renderBubble}
+              renderInputToolbar={renderInputToolbar}
               onSend={messages => onSend(messages)}
               user={{
-                //_id: route.params.id,
                 _id: userID,
                 name
               }}

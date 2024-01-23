@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, LogBox } from 'react-native';
+import { useNetInfo } from "@react-native-community/netinfo";
+import { StyleSheet, LogBox, Alert } from 'react-native';
 LogBox.ignoreLogs(["AsyncStorage has been extracted from"]);
 
 // import the screens

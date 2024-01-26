@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomActions from './CustomActions';
 import MapView from 'react-native-maps';
 
-const Chat = ({ route, navigation, db, isConnected }) => {
+const Chat = ({ route, navigation, db, isConnected, storage }) => {
     const { name, background, id } = route.params;
     const [messages, setMessages] = useState([]);
     const onSend = (newMessages) => {
@@ -33,6 +33,30 @@ const Chat = ({ route, navigation, db, isConnected }) => {
       if (isConnected) return <InputToolbar {...props} />;
       else return null;
     }
+
+    // Render an action button in Inputfield
+    const renderCustomActions = (props) => {
+      return <CustomActions storage={storage} {...props} />;
+    };
+
+    // Render a MapView if the currentMessage contains location data
+    const renderCustomView = (props) => {
+      const { currentMessage } = props;
+      if (currentMessage.location) {
+        return (
+          <MapView 
+            style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+            region={{
+              latitude: currentMessage.location.latitude,
+              longitude: currentMessage.location.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
+        );
+      }
+      return null;
+    };
 
     // Set user name
     useEffect(() => {
@@ -87,6 +111,8 @@ const Chat = ({ route, navigation, db, isConnected }) => {
               messages={messages}
               renderBubble={renderBubble}
               renderInputToolbar={renderInputToolbar}
+              renderActions={renderCustomActions}
+              renderCustomView={renderCustomView}
               onSend={messages => onSend(messages)}
               user={{
                 _id: id,

@@ -22,3 +22,17 @@ A chat app for mobile devices using React Native. The app provides users with a 
 * Send and receive locations 
 * Record, send and receive audio
 * Users can view previous messages when offline
+
+## Set up this App
+* Clone this repository.
+* Navigate to the chat-app folder and run ```npm install```
+* Set up Firebase for your project:
+    - Sign in at Google Firebase
+    - Create a project
+    - Set up Firestore Database (production mode)
+    - Adjust rules from ```allow read, write: if false;``` to ```allow read, write: if true;```
+    - Register app(</>) in Project Overview
+    - Navigate to the chat-app folder and install the Firebase using ```npm install firebase```
+    - Initialize Firebase by copying and pasting the provided Firebase configuration into the App.js
+* Download Android Studio on your computer or use the Expo Go App on your mobile device
+* Run ```expo start```

@@ -5,6 +5,7 @@ import { collection, addDoc, onSnapshot, orderBy, query } from "firebase/firesto
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomActions from './CustomActions';
 import MapView from 'react-native-maps';
+import { Audio } from 'expo-av';
 
 const Chat = ({ route, navigation, db, isConnected, storage }) => {
     const { name, background, id } = route.params;

@@ -169,13 +169,15 @@ const styles = StyleSheet.create({
       borderColor: '#b2b2b2',
       borderWidth: 2,
       flex: 1,
+      justifyContent: 'center',
     },
     iconText: {
       color: '#b2b2b2',
       fontWeight: 'bold',
-      fontSize: 10,
+      fontSize: 20,
       backgroundColor: 'transparent',
       textAlign: 'center',
+      top: -4
     },
 });
 

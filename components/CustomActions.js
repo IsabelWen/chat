@@ -53,6 +53,18 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, id }) => 
         return `${id}-${timeStamp}-${imageName}`;
     }
 
+    // Upload and send Image
+    const uploadAndSendImage = async (imageURI) => {
+        const uniqueRefString = generateReference(imageURI); 
+        const newUploadRef = ref(storage, uniqueRefString);
+        const response = await fetch(imageURI);
+        const blob = await response.blob();
+        uploadBytes(newUploadRef, blob).then(async (snapshot) => {
+            const imageURL = await getDownloadURL(snapshot.ref);
+            onSend({ image: imageURL});
+        });
+    }
+
     return (
         <TouchableOpacity style={styles.container} onPress={onActionPress}>
             <View style={[styles.wrapper, wrapperStyle]}>

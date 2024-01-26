@@ -65,6 +65,16 @@ const CustomActions = ({ wrapperStyle, iconTextStyle, onSend, storage, id }) => 
         });
     }
 
+    // Pick a Image
+    const pickImage = async () => {
+        let permissions = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (permissions?.granted) {
+            let result = await ImagePicker.launchImageLibraryAsync();
+            if (!result.canceled) await uploadAndSendImage(result.assets[0].uri);                
+            else Alert.alert("Permissions to accsess photo library haven't been granted.");
+        }
+    }
+
     return (
         <TouchableOpacity style={styles.container} onPress={onActionPress}>
             <View style={[styles.wrapper, wrapperStyle]}>
